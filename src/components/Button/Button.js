@@ -20,6 +20,7 @@ function Button({
     leftIcon,
     rightIcon,
     onClick,
+    login,
     ...passProps
 }) {
     let Comp = 'button';
@@ -55,6 +56,7 @@ function Button({
         small,
         large,
         black,
+        login,
     });
 
     return (

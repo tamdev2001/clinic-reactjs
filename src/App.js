@@ -22,9 +22,9 @@ function App() {
                             key={index}
                             path={route.path}
                             element={
-                                <Layout>
+                                <zzz>
                                     <Page />
-                                </Layout>
+                                </zzz>
                             }
                         />
                     );
