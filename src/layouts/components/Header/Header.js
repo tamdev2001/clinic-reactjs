@@ -68,6 +68,7 @@ function Header() {
                         <>
                             <Button to={config.routes.profile} relative="path">
                                 {currentUser.username}
+                                <img src={currentUser.avatar} width="20px" />
                             </Button>
                             <Button to={config.routes.signIn} onClick={logOut}>
                                 Sign out

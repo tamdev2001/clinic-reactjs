@@ -7,13 +7,17 @@ import App from '~/App';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyles from './components/GlobalStyles';
 import store from './store';
+import Test from './Test';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     // <React.StrictMode>
     <GlobalStyles>
         <Provider store={store}>
-            <App />
+            <>
+                <App />
+                <Test />
+            </>
         </Provider>
     </GlobalStyles>,
     // </React.StrictMode>,

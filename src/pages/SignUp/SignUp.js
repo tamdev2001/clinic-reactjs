@@ -3,41 +3,64 @@ import Form from '~/components/Form';
 import Input from '~/components/Input';
 import Select from '~/components/FormSelect';
 import request from '~/utils/httpRequest';
+import { useState } from 'react';
 
 function SignUp() {
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
+    const [comfirmPassword, setConfirmPassword] = useState();
+    const [phone, setPhone] = useState();
+    const [file, setFile] = useState();
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        const signUpData = Object.fromEntries(new FormData(e.target).entries());
-        console.log(signUpData);
-        // request
-        //     .post('auth/signup', {
-        //         lastName: 'afsadfas',
-        //         firstName: 'baaaa',
-        //         phone: '0851249052',
-        //         sex: 'nu',
-        //         username: 'nhietbaaaaaaa',
-        //         avatar: 'fjsdalf;fsdafsvvvvvv',
-        //         password: '1',
-        //         comfirmPassword: '1',
-        //     })
-        //     .then((user) => console.log(user));
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('username', username);
+        formData.append('password', password);
+        formData.append('comfirmPassword', comfirmPassword);
+        formData.append('phone', phone);
+
+        console.log(formData);
+
+        request
+            .post('/auth/signup', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            .then(function (response) {
+                console.log(response.data);
+            });
     };
     return (
         <Form onSubmit={handleSubmit}>
-            <Input name="lastName" placeholder="Enter last name..." />
-            <Input name="firstName" placeholder="Enter first name..." />
-            <Input name="phone" placeholder="Enter phone..." />
-            <Select
+            {/* <Input name="lastName" placeholder="Enter last name..." />
+            <Input name="firstName" placeholder="Enter first name..." /> */}
+            <Input name="phone" placeholder="Enter phone..." change={(e) => setPhone(e.target.value)} />
+            <Input name="username" placeholder="Enter username..." change={(e) => setUsername(e.target.value)} />
+            {/* <Select
                 name="sex"
                 options={[
                     { value: 0, optionName: '---sex---' },
                     { value: 'Nam', optionName: 'Nam' },
                     { value: 'Nữ', optionName: 'Nữ' },
                 ]}
+            /> */}
+            <Input name="file" placeholder="Choose avatar..." type="file" change={(e) => setFile(e.target.files[0])} />
+            <Input
+                type="password"
+                name="password"
+                placeholder="Enter password..."
+                change={(e) => setPassword(e.target.value)}
             />
-            {/* <Input name="avatar" placeholder="Enter avatar..." type="file" /> */}
-            <Input type="password" name="password" placeholder="Enter password..." />
-            <Input type="password" name="confirmPassword" placeholder="Enter confirmPassword..." />
+            <Input
+                type="password"
+                name="comfirmPassword"
+                placeholder="Enter confirmPassword..."
+                change={(e) => setConfirmPassword(e.target.value)}
+            />
             <Button type="submit" login>
                 Register
             </Button>
