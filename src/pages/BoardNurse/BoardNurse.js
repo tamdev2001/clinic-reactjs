@@ -9,7 +9,6 @@ const BoardNurse = () => {
         UserService.getNurseBoard().then(
             (response) => {
                 setContent(response.data);
-                console.log(response);
             },
             (error) => {
                 const _content =

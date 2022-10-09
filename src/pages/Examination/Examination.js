@@ -7,24 +7,43 @@ import convertTimestamp from '~/utils/convertTimestamp';
 
 import DoctorService from '~/services/doctor.service';
 import config from '~/config';
+import doctorService from '~/services/doctor.service';
 
 function Examination() {
     const [certificates, setCertificates] = useState([]);
+    const [stateDelete, setStateDelete] = useState(0);
     const [statusCer, setStatusCer] = useState();
     const { state } = useLocation();
+
+    console.log('re-render');
 
     let navigate = useNavigate();
 
     useEffect(() => {
+        console.log('get ', certificates);
         DoctorService.getCertificatesByRegisterId(state.register.id).then(
             (res) => setCertificates(res.data),
             (error) => setStatusCer(error.response.status),
         );
-    }, []);
+    }, [stateDelete]);
+
+    console.log('ouside ', certificates);
 
     const handleCertificate = (registerId) => {
-        return navigate(config.routes)
+        return navigate(config.routes);
     };
+
+    const deleteCertificate = (certificateId) => {
+        let result = doctorService.deleteCertificate(certificateId).then((res) => {
+            if (result) {
+                setStateDelete(stateDelete + 1);
+            }
+        });
+    };
+
+    // console.log('delete outside ', stateDelete);
+
+    const updateCertificate = (certificateId) => {};
 
     return (
         <div>
@@ -57,7 +76,7 @@ function Examination() {
                                     </Button>
                                 </td>
                                 <td>
-                                    <Button login small>
+                                    <Button login small onClick={() => deleteCertificate(cer.id)}>
                                         Xóa
                                     </Button>
                                 </td>

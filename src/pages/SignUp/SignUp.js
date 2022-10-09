@@ -22,17 +22,13 @@ function SignUp() {
         formData.append('comfirmPassword', comfirmPassword);
         formData.append('phone', phone);
 
-        console.log(formData);
-
         request
             .post('/auth/signup', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             })
-            .then(function (response) {
-                console.log(response.data);
-            });
+            .then(function (response) {});
     };
     return (
         <Form onSubmit={handleSubmit}>

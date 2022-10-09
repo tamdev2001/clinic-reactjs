@@ -12,7 +12,6 @@ import FormTitle from '~/components/FormTitle';
 const cx = classNames.bind(styles);
 
 function Register() {
-    console.log('rerender');
     let navigate = useNavigate();
 
     const nameRef = useRef();
