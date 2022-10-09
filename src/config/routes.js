@@ -9,6 +9,8 @@ const routes = {
     boardPatient: '/board-patient',
     boardDoctor: '/board-doctor',
     boardNurse: '/board-nurse',
+    examination: '/examination',
+    createCertificate: '/registers/1/certificates'
 };
 
 export default routes;

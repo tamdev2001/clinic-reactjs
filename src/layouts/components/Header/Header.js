@@ -1,14 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames/bind';
 import { Link, useLocation } from 'react-router-dom';
+import classNames from 'classnames/bind';
 
 import { logout } from '~/actions/auth';
 import { clearMessage } from '~/actions/message';
 
 import Button from '~/components/Button';
 import config from '~/config';
-import Search from '../Search';
 
 import styles from './Header.module.scss';
 
@@ -57,7 +56,12 @@ function Header() {
                     />
                 </Link>
                 <nav className={cx('board')}>
-                    {showDoctorBoard && <Button to={config.routes.boardDoctor}>Doctor</Button>}
+                    {showDoctorBoard && (
+                        <>
+                            <Button to={config.routes.boardDoctor}>Doctor</Button>
+                            <Button to={config.routes.listRegisters}>Danh sách khám</Button>
+                        </>
+                    )}
                     {showPatientBoard && <Button to={config.routes.boardPatient}>Patient</Button>}
                     {showNurseBoard && <Button to={config.routes.boardNurse}>Nurse</Button>}
                 </nav>

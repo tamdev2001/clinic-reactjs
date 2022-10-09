@@ -1,17 +1,44 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import request from '~/utils/httpRequest';
+
+import { Navigate, useNavigate } from 'react-router-dom';
+
+import RegisterService from '~/services/register.service';
 
 import classNames from 'classnames/bind';
 
 import styles from './ListRegisters.module.scss';
-import { Button } from 'react-bootstrap';
+import Button from '~/components/Button';
+import config from '~/config';
+import Examination from '../Examination';
 
 const cx = classNames.bind(styles);
 
 function ListRegisters() {
     const [registers, setRegisters] = useState([]);
-    request.get('/registers').then((registers) => setRegisters(registers.data));
+    const [registerId, setRegisterId] = useState();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        RegisterService.getListRegisters().then(
+            (res) => {
+                setRegisters(res.data);
+            },
+            (error) => {
+                const message =
+                    (error.response && error.response.data && error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+
+                setRegisters(message);
+            },
+        );
+    }, []);
+
+    const handleExamination = (register) => {
+        return navigate(config.routes.examination, { state: { register } });
+    };
 
     return (
         <div className={cx('wrapper')}>
@@ -24,23 +51,25 @@ function ListRegisters() {
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style={{ alignItem: 'center' }}>
                     {registers.map((register, index) => (
                         <tr key={index}>
                             <td>{register.name}</td>
                             <td>{register.healthIssues}</td>
                             <td>
-                                <Button>Khám bệnh</Button>
+                                <Button
+                                    login
+                                    small
+                                    onClick={() => {
+                                        handleExamination(register);
+                                    }}
+                                >
+                                    Khám bệnh
+                                </Button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
-                {/* {registers.map((register, index) => (
-                <tr key={index}>
-                    <td>{register.name}</td>
-                    <td>{register.healthIssues}</td>
-                </tr>
-            ))} */}
             </Table>
         </div>
     );
