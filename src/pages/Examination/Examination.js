@@ -80,7 +80,7 @@ function Examination() {
     };
 
     const cerDetailt = (cerId) => {
-        return navigate();
+        return navigate(`${config.routes.cer}/${cerId}`, { state: state });
     };
 
     return (

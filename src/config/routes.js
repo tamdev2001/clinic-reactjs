@@ -11,6 +11,7 @@ const routes = {
     boardNurse: '/board-nurse',
     examination: '/examinations',
     cerDetail: '/examination/:cerId',
+    cer: '/examination',
 };
 
 export default routes;

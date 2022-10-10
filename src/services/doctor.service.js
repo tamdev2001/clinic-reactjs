@@ -18,4 +18,44 @@ function createCertificate(registerId, cerData) {
     return request.post(`doctors/registers/${registerId}/certificates`, cerData, { headers: authHeader() });
 }
 
-export default { getCertificatesByRegisterId, deleteCertificate, updateCertificate, createCertificate };
+function getCertificateById(cerId) {
+    return request.get(`doctors/certificates/${cerId}`, { headers: authHeader() });
+}
+
+function createPrescription(cerId) {
+    return request.post(`doctors/certificates/${cerId}/prescriptions`, { headers: authHeader() });
+}
+
+function updatePrescription(preId) {
+    return request.put(`doctors/prescriptions/${preId}`);
+}
+
+function getPrescriptionsByCertificateId(cerId) {
+    return request.get(`doctors/certificates/${cerId}/prescriptions`, { headers: authHeader() });
+}
+
+function deletePrescription(preId) {
+    return request.delete(`doctors/prescriptions/${preId}`);
+}
+
+function addMedicineToPresciption(preId, medicinId) {
+    return request.post(`doctors/prescriptions/${preId}/medicines/${medicinId}`);
+}
+
+function getMedicines() {
+    return request.get('doctors/medicines');
+}
+
+export default {
+    getCertificatesByRegisterId,
+    deleteCertificate,
+    updateCertificate,
+    createCertificate,
+    getCertificateById,
+    createPrescription,
+    getPrescriptionsByCertificateId,
+    deletePrescription,
+    updatePrescription,
+    addMedicineToPresciption,
+    getMedicines,
+};

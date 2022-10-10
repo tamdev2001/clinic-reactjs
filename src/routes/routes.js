@@ -9,6 +9,7 @@ import BoardPatient from '~/pages/BoardPatient';
 import BoardDoctor from '~/pages/BoardDoctor';
 import BoardNurse from '~/pages/BoardNurse';
 import Examination from '~/pages/Examination';
+import Certificate from '~/pages/Certificate';
 
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -21,7 +22,7 @@ const publicRoutes = [
     { path: config.routes.boardDoctor, component: BoardDoctor },
     { path: config.routes.boardNurse, component: BoardNurse },
     { path: config.routes.examination, component: Examination },
-    { path: config.routes.cerDetail, component: Examination },
+    { path: config.routes.cerDetail, component: Certificate },
 ];
 
 const privateRoutes = [];
