@@ -1,3 +1,5 @@
+import authHeader from './auth-header';
+
 const { default: request } = require('~/utils/httpRequest');
 
 function getCertificatesByRegisterId(registerId) {
@@ -8,8 +10,12 @@ function deleteCertificate(certificateId) {
     return request.delete(`doctors/certificates/${certificateId}`);
 }
 
-function updateCertificate(certificateId, symptom, conclusion) {
-    return request.put(`doctors/certificates/${certificateId}`);
+function updateCertificate(cerId, cerData) {
+    return request.put(`doctors/certificates/${cerId}`, cerData, { headers: authHeader() });
 }
 
-export default { getCertificatesByRegisterId, deleteCertificate, updateCertificate };
+function createCertificate(registerId, cerData) {
+    return request.post(`doctors/registers/${registerId}/certificates`, cerData, { headers: authHeader() });
+}
+
+export default { getCertificatesByRegisterId, deleteCertificate, updateCertificate, createCertificate };
