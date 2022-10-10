@@ -1,19 +1,22 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
-import classNames from 'classnames/bind';
+// import Button from 'react-bootstrap/Button';
 
+import classNames from 'classnames/bind';
+// import Button from '~/components/Button';
+import config from '~/config';
+import styles from './Header.module.scss';
+import { FaArrowUp, FaArrowDown, FaSearch } from 'react-icons/fa';
+import { useCallback, useEffect, useState } from 'react';
+import Banner from '~/components/Banner';
+import { Button, Container, Form, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '~/actions/auth';
 import { clearMessage } from '~/actions/message';
 
-import Button from '~/components/Button';
-import config from '~/config';
-
-import styles from './Header.module.scss';
-
 const cx = classNames.bind(styles);
 
-function Header() {
+const Header = () => {
+    const [isActiveMenu, setIsActiveMenu] = useState(false);
     const [showPatientBoard, setShowPatientBoard] = useState(false);
     const [showDoctorBoard, setShowDoctorBoard] = useState(false);
     const [showNurseBoard, setShowNurseBoard] = useState(false);
@@ -44,54 +47,104 @@ function Header() {
             setShowNurseBoard(false);
         }
     }, [currentUser]);
-
     return (
-        <header className={cx('wrapper')}>
-            <div className={cx('container')}>
-                <Link to={config.routes.home} className={'home'}>
-                    <img
-                        className={cx('logo')}
-                        alt="logo"
-                        src="https://res.cloudinary.com/tamdev/image/upload/v1664423131/clinic/theme_clinika_logo_dark_szxwrg.png"
-                    />
-                </Link>
-                <nav className={cx('board')}>
-                    {showDoctorBoard && (
-                        <>
-                            <Button to={config.routes.boardDoctor}>Doctor</Button>
-                            <Button to={config.routes.listRegisters}>Danh sách khám</Button>
-                        </>
-                    )}
-                    {showPatientBoard && <Button to={config.routes.boardPatient}>Patient</Button>}
-                    {showNurseBoard && <Button to={config.routes.boardNurse}>Nurse</Button>}
-                </nav>
-                <nav className={cx('nav')}>
-                    <Button to={config.routes.home}>Home</Button>
+        <div id={cx('containerHeader')} className={`${isActiveMenu ? cx('activeMenu') : ''}`}>
+            <div className={cx('nav')}>
+                <div className={cx('menu')}>
+                    <Navbar className={cx('nav-bar')} collapseOnSelect expand="lg" variant="dark">
+                        <Container>
+                            <Navbar.Brand>
+                                <Link style={{ display: 'inline-block' }} to={config.routes.home}>
+                                    <img srcSet="logo.png" alt="" style={{ width: '45px' }} />
+                                </Link>
+                            </Navbar.Brand>
+                            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                            <Navbar.Collapse id="responsive-navbar-nav">
+                                <Nav className={'me-auto ' + cx('menu-nav')}>
+                                    <NavLink to={config.routes.home} onClick={() => setIsActiveMenu(!isActiveMenu)}>
+                                        Trang chủ
+                                    </NavLink>
+                                    {showDoctorBoard && (
+                                        <>
+                                            <NavLink to={config.routes.boardDoctor}>Doctor</NavLink>
+                                            <NavLink to={config.routes.listRegisters}>Danh sách khám</NavLink>
+                                        </>
+                                    )}
+                                    {showPatientBoard && <NavLink to={config.routes.boardPatient}>Patient</NavLink>}
+                                    {showNurseBoard && <NavLink to={config.routes.boardNurse}>Nurse</NavLink>}
+                                    {currentUser ? (
+                                        <>
+                                            <NavLink to={config.routes.profile} relative="path">
+                                                {currentUser.username}
+                                                <img src={currentUser.avatar} width="20px" />
+                                            </NavLink>
+                                            <NavLink to={config.routes.signIn} onClick={logOut}>
+                                                Sign out
+                                            </NavLink>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <NavLink to={config.routes.signIn}>Sign in</NavLink>
+                                            <NavLink to={config.routes.signUp}>Sign up</NavLink>
+                                        </>
+                                    )}
 
-                    {currentUser ? (
-                        <>
-                            <Button to={config.routes.profile} relative="path">
-                                {currentUser.username}
-                                <img src={currentUser.avatar} width="20px" />
-                            </Button>
-                            <Button to={config.routes.signIn} onClick={logOut}>
-                                Sign out
-                            </Button>
-                        </>
-                    ) : (
-                        <>
-                            <Button to={config.routes.signIn}>Sign in</Button>
-                            <Button to={config.routes.signUp}>Sign up</Button>
-                        </>
-                    )}
-
-                    <Button to={config.routes.regiter} rounded black>
-                        Appointment
-                    </Button>
-                </nav>
+                                    <NavLink to={config.routes.regiter} rounded black>
+                                        Appointment
+                                    </NavLink>
+                                    <NavDropdown title="Dịch vụ">
+                                        <NavDropdown.Item href="#action/3.1">1</NavDropdown.Item>
+                                        <NavDropdown.Item href="#action/3.2">2</NavDropdown.Item>
+                                        <NavDropdown.Item href="#action/3.3">3</NavDropdown.Item>
+                                        <NavDropdown.Divider />
+                                        <NavDropdown.Item href="#action/3.4">4</NavDropdown.Item>
+                                    </NavDropdown>
+                                </Nav>
+                                <Form className="d-flex">
+                                    <Form.Control
+                                        type="search"
+                                        placeholder="Bạn cần tìm gì?"
+                                        className="me-2"
+                                        aria-label="Search"
+                                    />
+                                    <Button variant="outline-success" className={cx('menu-search')}>
+                                        <FaSearch />
+                                    </Button>
+                                </Form>
+                            </Navbar.Collapse>
+                        </Container>
+                        <div className={cx('container-login')}>
+                            {!currentUser && (
+                                <>
+                                    <NavLink to={config.routes.signIn}>
+                                        <Button variant="outline-danger" onClick={() => setIsActiveMenu(!isActiveMenu)}>
+                                            Đăng nhập
+                                        </Button>
+                                    </NavLink>
+                                    <NavLink to={config.routes.signUp}>
+                                        <Button
+                                            variant="outline-success"
+                                            onClick={() => setIsActiveMenu(!isActiveMenu)}
+                                        >
+                                            Đăng ký
+                                        </Button>
+                                    </NavLink>
+                                </>
+                            )}
+                        </div>
+                    </Navbar>
+                    <div id={cx('direction')} onClick={() => setIsActiveMenu(!isActiveMenu)}>
+                        <FaArrowUp className={cx('iconShowMenu')}></FaArrowUp>
+                        <FaArrowDown className={cx('iconHideMenu')}></FaArrowDown>
+                    </div>
+                </div>
             </div>
-        </header>
+            <Banner></Banner>
+            {/* <div className={cx('banner')}>
+                <div className={cx('content')}>Hello</div>
+            </div> */}
+        </div>
     );
-}
+};
 
 export default Header;
