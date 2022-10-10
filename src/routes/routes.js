@@ -21,6 +21,7 @@ const publicRoutes = [
     { path: config.routes.boardDoctor, component: BoardDoctor },
     { path: config.routes.boardNurse, component: BoardNurse },
     { path: config.routes.examination, component: Examination },
+    { path: config.routes.cerDetail, component: Examination },
 ];
 
 const privateRoutes = [];
