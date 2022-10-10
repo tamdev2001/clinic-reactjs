@@ -105,13 +105,7 @@ function Examination() {
                     </thead>
                     <tbody>
                         {certificates.map((cer, index) => (
-                            <tr
-                                key={index}
-                                className={cx('cer')}
-                                onClick={() => {
-                                    cerDetailt(cer.id);
-                                }}
-                            >
+                            <tr key={index} className={cx('cer')}>
                                 <td>{cer.id}</td>
                                 <td>{cer.symptom}</td>
                                 <td>{cer.conclusion}</td>
@@ -133,6 +127,17 @@ function Examination() {
                                 <td>
                                     <Button login small onClick={() => deleteCertificate(cer.id)}>
                                         Xóa
+                                    </Button>
+                                </td>
+                                <td>
+                                    <Button
+                                        onClick={() => {
+                                            cerDetailt(cer.id);
+                                        }}
+                                        small
+                                        login
+                                    >
+                                        Chi tiết
                                     </Button>
                                 </td>
                             </tr>
