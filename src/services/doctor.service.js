@@ -43,7 +43,15 @@ function addMedicineToPresciption(preId, medicinId) {
 }
 
 function getMedicines() {
-    return request.get('doctors/medicines');
+    return request.get('doctors/medicines', { headers: authHeader() });
+}
+
+function getPrescriptionDetailsByPrescriptionId(preId) {
+    return request.get(`doctors/prescriptions/${preId}/details`);
+}
+
+function removeMedicineFromPresciption(preId, medicineId) {
+    return request.delete(`doctors/prescriptions/${preId}/medicines/${medicineId}`);
 }
 
 export default {
@@ -58,4 +66,6 @@ export default {
     updatePrescription,
     addMedicineToPresciption,
     getMedicines,
+    getPrescriptionDetailsByPrescriptionId,
+    removeMedicineFromPresciption,
 };

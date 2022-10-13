@@ -10,6 +10,8 @@ import BoardDoctor from '~/pages/BoardDoctor';
 import BoardNurse from '~/pages/BoardNurse';
 import Examination from '~/pages/Examination';
 import Certificate from '~/pages/Certificate';
+import History from '~/pages/History';
+import AppointmentHistory from '~/pages/AppointmentHistory';
 
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -23,6 +25,8 @@ const publicRoutes = [
     { path: config.routes.boardNurse, component: BoardNurse },
     { path: config.routes.examination, component: Examination },
     { path: config.routes.cerDetail, component: Certificate },
+    { path: config.routes.history, component: History },
+    { path: config.routes.appointmentHistory, component: AppointmentHistory },
 ];
 
 const privateRoutes = [];

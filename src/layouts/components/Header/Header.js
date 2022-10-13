@@ -70,13 +70,15 @@ const Header = () => {
                                             <NavLink to={config.routes.listRegisters}>Danh sách khám</NavLink>
                                         </>
                                     )}
-                                    {showPatientBoard && <NavLink to={config.routes.boardPatient}>Patient</NavLink>}
-                                    {showNurseBoard && <NavLink to={config.routes.boardNurse}>Nurse</NavLink>}
+                                    {showPatientBoard && <NavLink to={config.routes.history}>Lịch sử khám</NavLink>}
+                                    {showNurseBoard && (
+                                        <NavLink to={config.routes.appointmentHistory}>Lịch sử đăng ký</NavLink>
+                                    )}
                                     {currentUser ? (
                                         <>
                                             <NavLink to={config.routes.profile} relative="path">
                                                 {currentUser.username}
-                                                <img src={currentUser.avatar} width="20px" />
+                                                <img src={currentUser.avatar} className="avatar" />
                                             </NavLink>
                                             <NavLink to={config.routes.signIn} onClick={logOut}>
                                                 Sign out

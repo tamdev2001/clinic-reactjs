@@ -11,15 +11,15 @@ function getListRegisters(phone, name) {
 }
 
 function getRegisterById(id) {
-    return request.get(`registers/${id}`).then((register) => register.data);
+    return request.get(`registers/${id}`);
 }
 
-function createRegister(name, phone, healthIssues, examinationTime) {
-    return request.post('registers', { name, phone, healthIssues, examinationTime }).then((register) => register.data);
+function createRegister(data) {
+    return request.post('registers', data, { headers: authHeader() });
 }
 
 function verifiedRegister(id) {
-    return request.post(`registers/${id}/verified`).then((res) => res.data);
+    return request.post(`registers/${id}/verified`);
 }
 
 function deleteRegister(id) {
@@ -27,9 +27,19 @@ function deleteRegister(id) {
 }
 
 function updateRegister(id, name, phone, healthIssues, examinationTime) {
-    return request
-        .put(`registers/${id}`, { name, phone, healthIssues, examinationTime })
-        .then((register) => register.data);
+    return request.put(`registers/${id}`, { name, phone, healthIssues, examinationTime });
 }
 
-export default { getListRegisters, getRegisterById, createRegister, verifiedRegister, deleteRegister, updateRegister };
+function getRegistersByCurrentUser() {
+    return request.get('users/registers', { headers: authHeader() });
+}
+
+export default {
+    getListRegisters,
+    getRegisterById,
+    createRegister,
+    verifiedRegister,
+    deleteRegister,
+    updateRegister,
+    getRegistersByCurrentUser,
+};

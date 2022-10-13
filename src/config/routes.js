@@ -12,6 +12,8 @@ const routes = {
     examination: '/examinations',
     cerDetail: '/examination/:cerId',
     cer: '/examination',
+    history: '/history',
+    appointmentHistory: '/appointment-history',
 };
 
 export default routes;

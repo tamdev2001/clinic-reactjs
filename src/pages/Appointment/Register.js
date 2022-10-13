@@ -9,6 +9,8 @@ import Input from '~/components/Input';
 import Button from '~/components/Button';
 import FormTitle from '~/components/FormTitle';
 
+import registerService from '~/services/register.service';
+
 const cx = classNames.bind(styles);
 
 function Register() {
@@ -20,7 +22,7 @@ function Register() {
         e.preventDefault();
         const registerData = Object.fromEntries(new FormData(e.target).entries());
 
-        request.post('registers', registerData).then((register) => {
+        registerService.createRegister(registerData).then((register) => {
             if (register.status === 201) {
                 return navigate('/');
             }
