@@ -26,24 +26,16 @@ function Examination() {
     const [symptom, setSymptom] = useState('');
     const [conclusion, setConclusion] = useState('');
 
-    console.log('cer ', idCer);
-    console.log('Register ', idRegister);
-
     const { state } = useLocation();
-
-    console.log('re-render');
 
     let navigate = useNavigate();
 
     useEffect(() => {
-        console.log('get ', certificates);
         DoctorService.getCertificatesByRegisterId(state.register.id).then(
             (res) => setCertificates(res.data),
             (error) => setStatusCer(error.response.status),
         );
     }, [changeCer]);
-
-    console.log('ouside ', certificates);
 
     const createCertificate = (e) => {
         e.preventDefault();
@@ -100,6 +92,7 @@ function Examination() {
                             <th>Mã phiếu khám</th>
                             <th>Triệu chứng</th>
                             <th>Kết luận</th>
+                            <th>Bác sĩ</th>
                             <th>Ngày tạo</th>
                         </tr>
                     </thead>
@@ -109,6 +102,9 @@ function Examination() {
                                 <td>{cer.id}</td>
                                 <td>{cer.symptom}</td>
                                 <td>{cer.conclusion}</td>
+                                <td>
+                                    {cer.user.lastName} {cer.user.firstName}
+                                </td>
                                 <td>{convertTimestamp(cer.createdDate)}</td>
                                 <td>
                                     <Button
