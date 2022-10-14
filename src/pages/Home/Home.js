@@ -1,14 +1,16 @@
 import { useState } from 'react';
+import Banner from '~/components/Banner';
+import Specialty from '~/components/Specialty';
 import request from '~/utils/httpRequest';
 
 function Home() {
-    const [user, setUser] = useState();
-
-    if (user != null) {
-        return <h1>Hello {user}</h1>;
-    }
-
-    return <h1>Home page</h1>;
+    return (
+        <div>
+            <Banner />
+            <h1>Home page</h1>
+            <Specialty />
+        </div>
+    );
 }
 
 export default Home;

@@ -47,6 +47,7 @@ const Header = () => {
             setShowNurseBoard(false);
         }
     }, [currentUser]);
+
     return (
         <div id={cx('containerHeader')} className={`${isActiveMenu ? cx('activeMenu') : ''}`}>
             <div className={cx('nav')}>
@@ -66,32 +67,79 @@ const Header = () => {
                                     </NavLink>
                                     {showDoctorBoard && (
                                         <>
-                                            <NavLink to={config.routes.boardDoctor}>Doctor</NavLink>
-                                            <NavLink to={config.routes.listRegisters}>Danh sách khám</NavLink>
+                                            <NavLink
+                                                to={config.routes.boardDoctor}
+                                                onClick={() => setIsActiveMenu(!isActiveMenu)}
+                                            >
+                                                Doctor
+                                            </NavLink>
+                                            <NavLink
+                                                to={config.routes.listRegisters}
+                                                onClick={() => setIsActiveMenu(!isActiveMenu)}
+                                            >
+                                                Danh sách khám
+                                            </NavLink>
                                         </>
                                     )}
-                                    {showPatientBoard && <NavLink to={config.routes.history}>Lịch sử khám</NavLink>}
+                                    {showPatientBoard && (
+                                        <NavLink
+                                            onClick={() => setIsActiveMenu(!isActiveMenu)}
+                                            to={config.routes.history}
+                                        >
+                                            Lịch sử khám
+                                        </NavLink>
+                                    )}
                                     {showNurseBoard && (
-                                        <NavLink to={config.routes.appointmentHistory}>Lịch sử đăng ký</NavLink>
+                                        <NavLink
+                                            onClick={() => setIsActiveMenu(!isActiveMenu)}
+                                            to={config.routes.appointmentHistory}
+                                        >
+                                            Lịch sử đăng ký
+                                        </NavLink>
                                     )}
                                     {currentUser ? (
                                         <>
-                                            <NavLink to={config.routes.profile} relative="path">
+                                            <NavLink
+                                                onClick={() => setIsActiveMenu(!isActiveMenu)}
+                                                to={config.routes.profile}
+                                                relative="path"
+                                            >
                                                 {currentUser.username}
                                                 <img src={currentUser.avatar} className="avatar" />
                                             </NavLink>
-                                            <NavLink to={config.routes.signIn} onClick={logOut}>
+                                            <NavLink
+                                                onClick={() => {
+                                                    setIsActiveMenu(!isActiveMenu);
+                                                    logOut();
+                                                }}
+                                                to={config.routes.signIn}
+                                            >
                                                 Sign out
                                             </NavLink>
                                         </>
                                     ) : (
                                         <>
-                                            <NavLink to={config.routes.signIn}>Sign in</NavLink>
-                                            <NavLink to={config.routes.signUp}>Sign up</NavLink>
+                                            <NavLink
+                                                onClick={() => setIsActiveMenu(!isActiveMenu)}
+                                                to={config.routes.signIn}
+                                            >
+                                                Sign in
+                                            </NavLink>
+                                            <NavLink
+                                                onClick={() => setIsActiveMenu(!isActiveMenu)}
+                                                to={config.routes.signUp}
+                                            >
+                                                Sign up
+                                            </NavLink>
                                         </>
                                     )}
 
-                                    <NavLink to={config.routes.regiter} rounded black>
+                                    <NavLink
+                                        onClick={() => setIsActiveMenu(!isActiveMenu)}
+                                        to={config.routes.regiter}
+                                        rounded
+                                        black
+                                    >
                                         Appointment
                                     </NavLink>
                                     <NavDropdown title="Dịch vụ">
@@ -118,12 +166,12 @@ const Header = () => {
                         <div className={cx('container-login')}>
                             {!currentUser && (
                                 <>
-                                    <NavLink to={config.routes.signIn}>
+                                    <NavLink onClick={() => setIsActiveMenu(!isActiveMenu)} to={config.routes.signIn}>
                                         <Button variant="outline-danger" onClick={() => setIsActiveMenu(!isActiveMenu)}>
                                             Đăng nhập
                                         </Button>
                                     </NavLink>
-                                    <NavLink to={config.routes.signUp}>
+                                    <NavLink onClick={() => setIsActiveMenu(!isActiveMenu)} to={config.routes.signUp}>
                                         <Button
                                             variant="outline-success"
                                             onClick={() => setIsActiveMenu(!isActiveMenu)}
@@ -141,10 +189,6 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-            <Banner></Banner>
-            {/* <div className={cx('banner')}>
-                <div className={cx('content')}>Hello</div>
-            </div> */}
         </div>
     );
 };
