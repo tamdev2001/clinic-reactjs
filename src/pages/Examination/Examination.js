@@ -13,6 +13,7 @@ import DoctorService from '~/services/doctor.service';
 import config from '~/config';
 import doctorService from '~/services/doctor.service';
 import Input from '~/components/Input';
+import MyTable from '~/components/MyTable';
 
 const cx = classNames.bind(styles);
 
@@ -79,24 +80,14 @@ function Examination() {
         <div>
             <h1>Patient name: {state.register.name}</h1>
             <h3>Health Issues: {state.register.healthIssues}</h3>
-            <br />
-            <br />
-            <br />
-            <h1>certificates</h1>
-            {statusCer === 404 ? (
-                <h3>Bệnh nhân chưa có phiếu khám</h3>
-            ) : (
-                <Table striped bordered hove="true">
-                    <thead>
-                        <tr>
-                            <th>Mã phiếu khám</th>
-                            <th>Triệu chứng</th>
-                            <th>Kết luận</th>
-                            <th>Bác sĩ</th>
-                            <th>Ngày tạo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <MyTable
+                title={'Phiếu khám của bệnh nhân'}
+                headings={['Mã phiếu khám', 'Triệu chứng', 'Kết luận', 'Bác sĩ', 'Ngày tạo']}
+            >
+                {statusCer === 404 ? (
+                    <h3>Bệnh nhân chưa có phiếu khám</h3>
+                ) : (
+                    <>
                         {certificates.map((cer, index) => (
                             <tr key={index} className={cx('cer')}>
                                 <td>{cer.id}</td>
@@ -138,9 +129,10 @@ function Examination() {
                                 </td>
                             </tr>
                         ))}
-                    </tbody>
-                </Table>
-            )}
+                    </>
+                )}
+            </MyTable>
+
             <br />
             <br />
             <br />

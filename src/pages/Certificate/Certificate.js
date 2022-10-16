@@ -4,6 +4,7 @@ import { Table } from 'react-bootstrap';
 import { useLocation, useParams } from 'react-router-dom';
 import Button from '~/components/Button';
 import Input from '~/components/Input';
+import MyTable from '~/components/MyTable';
 import doctorService from '~/services/doctor.service';
 import convertTimestamp from '~/utils/convertTimestamp';
 
@@ -71,6 +72,7 @@ function Certificate() {
             setMedicines(medicine.data);
             setPreId(preId);
         });
+        console.log('hey');
     };
 
     const addMedicineToPresciption = (medicineId) => {
@@ -95,130 +97,108 @@ function Certificate() {
                     <h2>Kết luận: {cers.conclusion}</h2>
                 </>
             )}
-            <br />
-            <h1>=============Toa thuốc========</h1>
+
             {prescriptions ? (
-                <div>
-                    <>
+                <>
+                    {prescriptions.map((pre) => (
+                        <>
+                            <div key={pre.id} className={cx('wrap-pre')}>
+                                <div className={cx('pre-item')}>
+                                    <h4>Mã phiếu khám</h4>
+                                    <span>{pre.id}</span>
+                                </div>
+                                <div className={cx('pre-item')}>
+                                    <h4>Ngày tạo</h4>
+                                    <span>{convertTimestamp(pre.createdDate)}</span>
+                                </div>
+                                <Button
+                                    small
+                                    login
+                                    onClick={() => {
+                                        getMedicine(pre.id);
+                                    }}
+                                >
+                                    Thêm thuốc
+                                </Button>
+                                <Button
+                                    small
+                                    login
+                                    onClick={() => {
+                                        deletePrescription(pre.id);
+                                    }}
+                                >
+                                    Xóa
+                                </Button>
+                            </div>
+                            {medicineOfPres.find((m) => m.id === pre.id) && (
+                                <MyTable
+                                    small
+                                    headings={[
+                                        'Mã thuốc',
+                                        'Tên thuốc',
+                                        'Ghi chú',
+                                        'Đơn vị',
+                                        'Số lượng / đơn vị',
+                                        'Số lượng',
+                                    ]}
+                                >
+                                    {medicineOfPres.find((m) => m.id === pre.id).mds !== null &&
+                                        medicineOfPres
+                                            .find((m) => m.id === pre.id)
+                                            .mds.map((m) => (
+                                                <tr key={m.medicine.id}>
+                                                    <td>{m.medicine.id}</td>
+                                                    <td>{m.medicine.name}</td>
+                                                    <td>{m.medicine.note}</td>
+                                                    <td>{m.medicine.unit.name}</td>
+                                                    <td>{m.medicine.quantityPerUnit}</td>
+                                                    <td>{m.quantity}</td>
+                                                    <td>
+                                                        <Button
+                                                            small
+                                                            primary
+                                                            onClick={() => removeMedicine(pre.id, m.medicine.id)}
+                                                        >
+                                                            Xóa
+                                                        </Button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                </MyTable>
+                            )}
+                        </>
+                    ))}
+                    {medicines.length && (
                         <Table striped bordered hove="true">
                             <thead>
                                 <tr>
-                                    <th>Mã toa thuốc</th>
-                                    <th>Ngày tạo</th>
+                                    <th>Mã thuốc</th>
+                                    <th>Tên thuốc</th>
+                                    <th>Cách dùng thuốc</th>
+                                    <th>Giá</th>
+                                    <th>Đơn vị</th>
+                                    <th>Số lượng trên đơn vị</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {prescriptions.map((pre, index) => (
-                                    <>
-                                        <tr key={index}>
-                                            <td>{pre.id}</td>
-                                            <td>{convertTimestamp(pre.createdDate)}</td>
-                                            <td>
-                                                <Button
-                                                    small
-                                                    login
-                                                    onClick={() => {
-                                                        getMedicine(pre.id);
-                                                    }}
-                                                >
-                                                    Thêm thuốc
-                                                </Button>
-                                            </td>
-                                            <td>
-                                                <Button
-                                                    small
-                                                    login
-                                                    onClick={() => {
-                                                        deletePrescription(pre.id);
-                                                    }}
-                                                >
-                                                    Xóa
-                                                </Button>
-                                            </td>
-                                        </tr>
-                                        {medicineOfPres.find((m) => m.id === pre.id) && (
-                                            <Table striped bordered hove="true">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Mã thuốc</th>
-                                                        <th>Tên thuốc thuốc</th>
-                                                        <th>Ghi chú</th>
-                                                        <th>Đơn vị</th>
-                                                        <th>Số lượng trên đơn vị</th>
-                                                        <th>Số lượng</th>
-                                                    </tr>
-                                                </thead>
-
-                                                {medicineOfPres.find((m) => m.id === pre.id).mds !== null &&
-                                                    medicineOfPres
-                                                        .find((m) => m.id === pre.id)
-                                                        .mds.map((m) => (
-                                                            <tbody>
-                                                                <tr key={m.medicine.id}>
-                                                                    <td>{m.medicine.id}</td>
-                                                                    <td>{m.medicine.name}</td>
-                                                                    <td>{m.medicine.note}</td>
-                                                                    <td>{m.medicine.unit.name}</td>
-                                                                    <td>{m.medicine.quantityPerUnit}</td>
-                                                                    <td>
-                                                                        <Input
-                                                                            value={m.quantity}
-                                                                            onChange={(e) =>
-                                                                                setQuantity(e.target.value)
-                                                                            }
-                                                                            type="number"
-                                                                        />
-                                                                    </td>
-                                                                    <td>
-                                                                        <Button
-                                                                            onClick={() =>
-                                                                                removeMedicine(pre.id, m.medicine.id)
-                                                                            }
-                                                                        >
-                                                                            Xóa
-                                                                        </Button>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        ))}
-                                            </Table>
-                                        )}
-                                    </>
+                                {medicines.map((medicine) => (
+                                    <tr
+                                        className={cx('add-medicine')}
+                                        onClick={() => addMedicineToPresciption(medicine.id)}
+                                        key={medicine.id}
+                                    >
+                                        <td>{medicine.id}</td>
+                                        <td>{medicine.name}</td>
+                                        <td>{medicine.note}</td>
+                                        <td>{medicine.price}</td>
+                                        <td>{medicine.unit.name}</td>
+                                        <td>{medicine.quantityPerUnit}</td>
+                                    </tr>
                                 ))}
                             </tbody>
                         </Table>
-                        {medicines.length && (
-                            <Table striped bordered hove="true">
-                                <thead>
-                                    <tr>
-                                        <th>Mã thuốc</th>
-                                        <th>Tên thuốc</th>
-                                        <th>Cách dùng thuốc</th>
-                                        <th>Giá</th>
-                                        <th>Đơn vị</th>
-                                        <th>Số lượng trên đơn vị</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {medicines.map((medicine) => (
-                                        <tr
-                                            className={cx('add-medicine')}
-                                            onClick={() => addMedicineToPresciption(medicine.id)}
-                                            key={medicine.id}
-                                        >
-                                            <td>{medicine.id}</td>
-                                            <td>{medicine.name}</td>
-                                            <td>{medicine.note}</td>
-                                            <td>{medicine.price}</td>
-                                            <td>{medicine.unit.name}</td>
-                                            <td>{medicine.quantityPerUnit}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                        )}
-                    </>
-                </div>
+                    )}
+                </>
             ) : (
                 <h3>Chưa có toa thuóc</h3>
             )}

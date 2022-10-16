@@ -97,7 +97,7 @@ const Header = () => {
                                             Lịch sử đăng ký
                                         </NavLink>
                                     )}
-                                    {currentUser ? (
+                                    {currentUser && (
                                         <>
                                             <NavLink
                                                 onClick={() => setIsActiveMenu(!isActiveMenu)}
@@ -106,30 +106,6 @@ const Header = () => {
                                             >
                                                 {currentUser.username}
                                                 <img src={currentUser.avatar} className="avatar" />
-                                            </NavLink>
-                                            <NavLink
-                                                onClick={() => {
-                                                    setIsActiveMenu(!isActiveMenu);
-                                                    logOut();
-                                                }}
-                                                to={config.routes.signIn}
-                                            >
-                                                Sign out
-                                            </NavLink>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <NavLink
-                                                onClick={() => setIsActiveMenu(!isActiveMenu)}
-                                                to={config.routes.signIn}
-                                            >
-                                                Sign in
-                                            </NavLink>
-                                            <NavLink
-                                                onClick={() => setIsActiveMenu(!isActiveMenu)}
-                                                to={config.routes.signUp}
-                                            >
-                                                Sign up
                                             </NavLink>
                                         </>
                                     )}
@@ -164,7 +140,7 @@ const Header = () => {
                             </Navbar.Collapse>
                         </Container>
                         <div className={cx('container-login')}>
-                            {!currentUser && (
+                            {!currentUser ? (
                                 <>
                                     <NavLink onClick={() => setIsActiveMenu(!isActiveMenu)} to={config.routes.signIn}>
                                         <Button variant="outline-danger" onClick={() => setIsActiveMenu(!isActiveMenu)}>
@@ -180,6 +156,16 @@ const Header = () => {
                                         </Button>
                                     </NavLink>
                                 </>
+                            ) : (
+                                <NavLink
+                                    onClick={() => {
+                                        setIsActiveMenu(!isActiveMenu);
+                                        logOut();
+                                    }}
+                                    to={config.routes.signIn}
+                                >
+                                    <Button variant="outline-danger">Sign out</Button>
+                                </NavLink>
                             )}
                         </div>
                     </Navbar>

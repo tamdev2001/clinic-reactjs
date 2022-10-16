@@ -75,9 +75,9 @@
 }
 
 .primary {
-    color: var(--white);
-    background-color: var(--primary);
-    border-color: var(--primary);
+    color: #fff;
+    background-color: #fe2c55;
+    border-color: #fe2c55;
 
     &:hover {
         border-color: var(--primary);
@@ -110,6 +110,14 @@
 .small {
     min-width: 40px;
     padding: 4px 8px;
+    font-size: 14px;
+    border-radius: 20px;
+    max-width: 200px;
+}
+
+.green {
+    background: #cff6dd;
+    color: #1fa750;
 }
 
 .large {

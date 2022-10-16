@@ -12,6 +12,7 @@ import styles from './ListRegisters.module.scss';
 import Button from '~/components/Button';
 import config from '~/config';
 import Examination from '../Examination';
+import MyTable from '~/components/MyTable';
 
 const cx = classNames.bind(styles);
 
@@ -42,35 +43,25 @@ function ListRegisters() {
 
     return (
         <div className={cx('wrapper')}>
-            <h1>Danh sách khám bệnh</h1>
-            <Table striped bordered hove="true">
-                <thead>
-                    <tr>
-                        <th>Tên bệnh nhân</th>
-                        <th>Triệu chứng bệnh</th>
-                        <th></th>
+            <MyTable title={'Danh sách khám bệnh'} headings={['Tên bệnh nhân', 'Triệu chứng bệnh']}>
+                {registers.map((register, index) => (
+                    <tr key={index}>
+                        <td>{register.name}</td>
+                        <td>{register.healthIssues}</td>
+                        <td>
+                            <Button
+                                onClick={() => {
+                                    handleExamination(register);
+                                }}
+                                small
+                                green
+                            >
+                                Khám bệnh
+                            </Button>
+                        </td>
                     </tr>
-                </thead>
-                <tbody style={{ alignItem: 'center' }}>
-                    {registers.map((register, index) => (
-                        <tr key={index}>
-                            <td>{register.name}</td>
-                            <td>{register.healthIssues}</td>
-                            <td>
-                                <Button
-                                    login
-                                    small
-                                    onClick={() => {
-                                        handleExamination(register);
-                                    }}
-                                >
-                                    Khám bệnh
-                                </Button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
+                ))}
+            </MyTable>
         </div>
     );
 }

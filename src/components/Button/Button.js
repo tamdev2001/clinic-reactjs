@@ -15,6 +15,7 @@ function Button({
     small = false,
     large = false,
     black = false,
+    green = false,
     children,
     className,
     leftIcon,
@@ -57,6 +58,7 @@ function Button({
         large,
         black,
         login,
+        green,
     });
 
     return (
