@@ -1,10 +1,15 @@
+import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import doctorService from '~/services/doctor.service';
+import MyTable from '~/components/MyTable';
 import patientService from '~/services/patient.service';
 import registerService from '~/services/register.service';
 import convertTimestamp from '~/utils/convertTimestamp';
+
+import styles from './History.module.scss';
+
+const cx = classNames.bind(styles);
 
 function History() {
     const { user: currentUser } = useSelector((state) => state.auth);
@@ -56,7 +61,6 @@ function History() {
         );
     }, [prescriptions]);
 
-    console.log('medicineofpre ', medicineOfPres);
     console.log('certificates ', certificates);
 
     if (!currentUser) {
@@ -64,21 +68,22 @@ function History() {
     }
 
     return (
-        <div>
+        <div className={cx('wrapper')}>
             {registers === 404 && <h1>Bạn không có lịch sử khám</h1>}
             {registers.length && (
-                <Table striped bordered hove="true">
-                    <thead>
-                        <tr>
-                            <th>Mã đăng ký</th>
-                            <th>Tên bệnh nhân</th>
-                            <th>Số điện thoại</th>
-                            <th>Ngày đăng ký</th>
-                            <th>Ngày hẹn khám</th>
-                            <th>Trạng thái</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div>
+                    <MyTable
+                        green
+                        title="Lịch sử khám bệnh"
+                        headings={[
+                            'Mã đăng ký',
+                            'Tên bệnh nhân',
+                            'Số điện',
+                            'Ngày đăng ký',
+                            'Ngày hẹn khám',
+                            'Trạng thái',
+                        ]}
+                    >
                         {registers.map((r) => (
                             <>
                                 <tr key={r.id}>
@@ -89,101 +94,125 @@ function History() {
                                     <td>{convertTimestamp(r.examinationTime)}</td>
                                     <td>{r.verified ? <span>Đã xác nhận</span> : <span>Chưa xác nhận</span>}</td>
                                 </tr>
-                                <h1>Phiếu khám</h1>
                                 {certificates.length &&
                                     certificates.find((c) => c.id === r.id).cers.length &&
                                     certificates
                                         .find((c) => c.id == r.id)
                                         .cers.map((cer) => (
                                             <>
-                                                <Table striped bordered hove="true">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Mã phiếu khám</th>
-                                                            <th>Triệu chứng</th>
-                                                            <th>Kết luận</th>
-                                                            <th>Bác sĩ</th>
-                                                            <th>Ngày tạo</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr key={cer.id}>
-                                                            <td>{cer.id}</td>
-                                                            <td>{cer.symptom}</td>
-                                                            <td>{cer.conclusion}</td>
-                                                            <td>
-                                                                {cer.user.lastName} {cer.user.firstName}
-                                                            </td>
-                                                            <td>{convertTimestamp(cer.createdDate)}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </Table>
-                                                <h1>Toa thuốc</h1>
+                                                <div key={cer.id} className={cx('wrap-cer')}>
+                                                    <div className={cx('cer-item')}>
+                                                        <h4>Mã phiếu khám</h4>
+                                                        <span>{cer.id}</span>
+                                                    </div>
+                                                    <div className={cx('cer-item')}>
+                                                        <h4>Triệu chứng</h4>
+                                                        <span>{cer.symptom}</span>
+                                                    </div>
+                                                    <div className={cx('cer-item')}>
+                                                        <h4>Kết luận</h4>
+                                                        <span>{cer.conclusion}</span>
+                                                    </div>
+                                                    <div className={cx('cer-item')}>
+                                                        <h4>Bác sĩ khám</h4>
+                                                        <span>
+                                                            {cer.user.lastName} {cer.user.firstName}
+                                                        </span>
+                                                    </div>
+                                                    <div className={cx('cer-item')}>
+                                                        <h4>Ngày tạo</h4>
+                                                        <span>{convertTimestamp(cer.createdDate)}</span>
+                                                    </div>
+                                                </div>
                                                 {prescriptions.length &&
                                                     prescriptions.find((p) => p.cerId == cer.id) !== null &&
                                                     prescriptions.find((p) => p.cerId === cer.id).pres.length &&
                                                     prescriptions
                                                         .find((p) => p.cerId === cer.id)
                                                         .pres.map((p) => (
-                                                            <Table striped bordered hove="true">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Mã toa thuốc</th>
-                                                                        <th>Ngày tạo</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>{p.id}</td>
-                                                                        <td>{convertTimestamp(p.createdDate)}</td>
-                                                                    </tr>
-                                                                </tbody>
+                                                            <>
+                                                                <div className={cx('wrap-pre')}>
+                                                                    <div className={cx('pre-item')}>
+                                                                        <h4>Mã toa thuốc</h4>
+                                                                        <span>{p.id}</span>
+                                                                    </div>
+                                                                    <div className={cx('pre-item')}>
+                                                                        <h4>Ngày tạo</h4>
+                                                                        <span>{convertTimestamp(p.createdDate)}</span>
+                                                                    </div>
+                                                                </div>
                                                                 {medicineOfPres.find((m) => m.preId === p.id) && (
-                                                                    <Table striped bordered hove="true">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Mã thuốc</th>
-                                                                                <th>Tên thuốc thuốc</th>
-                                                                                <th>Ghi chú</th>
-                                                                                <th>Đơn vị</th>
-                                                                                <th>Số lượng trên đơn vị</th>
-                                                                                <th>Số lượng</th>
-                                                                            </tr>
-                                                                        </thead>
+                                                                    <>
+                                                                        <div className={cx('policy-container')}>
+                                                                            <div className={cx('policy-table')}>
+                                                                                <div className={cx('headings')}>
+                                                                                    <span className={cx('heading')}>
+                                                                                        Mã thuốc
+                                                                                    </span>
+                                                                                    <span className={cx('heading')}>
+                                                                                        Tên thuốc
+                                                                                    </span>
+                                                                                    <span className={cx('heading')}>
+                                                                                        Ghi chú
+                                                                                    </span>
+                                                                                    <span className={cx('heading')}>
+                                                                                        Đơn vị
+                                                                                    </span>
+                                                                                    <span className={cx('heading')}>
+                                                                                        Số lượng/đơn vị
+                                                                                    </span>
+                                                                                    <span className={cx('heading')}>
+                                                                                        Số lượng
+                                                                                    </span>
+                                                                                </div>
 
-                                                                        {medicineOfPres.find((m) => m.preId === p.id)
-                                                                            .mds !== null &&
-                                                                            medicineOfPres
-                                                                                .find((m) => m.preId === p.id)
-                                                                                .mds.map((m) => (
-                                                                                    <tbody>
-                                                                                        <tr key={m.medicine.id}>
-                                                                                            <td>{m.medicine.id}</td>
-                                                                                            <td>{m.medicine.name}</td>
-                                                                                            <td>{m.medicine.note}</td>
-                                                                                            <td>
-                                                                                                {m.medicine.unit.name}
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                {
-                                                                                                    m.medicine
-                                                                                                        .quantityPerUnit
-                                                                                                }
-                                                                                            </td>
-                                                                                            <td>{m.quantity}</td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                ))}
-                                                                    </Table>
+                                                                                {medicineOfPres.find(
+                                                                                    (m) => m.preId === p.id,
+                                                                                ).mds !== null &&
+                                                                                    medicineOfPres
+                                                                                        .find((m) => m.preId === p.id)
+                                                                                        .mds.map((m) => (
+                                                                                            <div
+                                                                                                className={cx('policy')}
+                                                                                            >
+                                                                                                <span>
+                                                                                                    {m.medicine.id}
+                                                                                                </span>
+                                                                                                <span>
+                                                                                                    {m.medicine.name}
+                                                                                                </span>
+                                                                                                <span>
+                                                                                                    {m.medicine.note}
+                                                                                                </span>
+                                                                                                <span>
+                                                                                                    {
+                                                                                                        m.medicine.unit
+                                                                                                            .name
+                                                                                                    }
+                                                                                                </span>
+                                                                                                <span>
+                                                                                                    {
+                                                                                                        m.medicine
+                                                                                                            .quantityPerUnit
+                                                                                                    }
+                                                                                                </span>
+                                                                                                <span>
+                                                                                                    {m.quantity}
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        ))}
+                                                                            </div>
+                                                                        </div>
+                                                                    </>
                                                                 )}
-                                                            </Table>
+                                                            </>
                                                         ))}
                                             </>
                                         ))}
                             </>
                         ))}
-                    </tbody>
-                </Table>
+                    </MyTable>
+                </div>
             )}
         </div>
     );

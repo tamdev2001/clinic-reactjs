@@ -1,3 +1,11 @@
+.container {
+    margin: 80px 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
 .row {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -6,10 +14,18 @@
     flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
+    justify-content: center;
 }
 
 .small td {
     padding: 0 !important;
+}
+
+.green td {
+    color: #fff;
+    background-color: #478b60 !important;
+    font-size: 16px;
+    font-weight: 700;
 }
 
 .small {

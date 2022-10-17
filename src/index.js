@@ -6,8 +6,6 @@ import App from '~/App';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyles from './components/GlobalStyles';
 import store from './store';
-import Test from './Test';
-import LevelTable from './components/LevelTable';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,7 +14,6 @@ root.render(
         <Provider store={store}>
             <>
                 <App />
-                <LevelTable />
             </>
         </Provider>
     </GlobalStyles>,

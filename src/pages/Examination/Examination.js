@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Table } from 'react-bootstrap';
+import { Offcanvas, Table } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
@@ -27,9 +27,16 @@ function Examination() {
     const [symptom, setSymptom] = useState('');
     const [conclusion, setConclusion] = useState('');
 
+    const [show, setShow] = useState(false);
+
     const { state } = useLocation();
 
     let navigate = useNavigate();
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    console.log('show ', show);
 
     useEffect(() => {
         DoctorService.getCertificatesByRegisterId(state.register.id).then(
@@ -102,10 +109,11 @@ function Examination() {
                                         login
                                         small
                                         onClick={() => {
+                                            handleShow();
+                                            setIdRegister(null);
                                             setIdCer(cer.id);
                                             setConclusion(cer.conclusion);
                                             setSymptom(cer.symptom);
-                                            setIdRegister = null;
                                         }}
                                     >
                                         Chỉnh sửa
@@ -133,42 +141,55 @@ function Examination() {
                 )}
             </MyTable>
 
-            <br />
-            <br />
-            <br />
             <Button
                 login
                 small
                 onClick={() => {
+                    handleShow();
                     setIdRegister(state.register.id);
-                    setIdCer = null;
+                    setIdCer(null);
                 }}
             >
                 Tạo phiếu khám
             </Button>
+
             {idRegister && (
-                <form onSubmit={createCertificate}>
-                    <Input name="symptom" placeholder="Triệu chứng..." />
-                    <Input name="conclusion" placeholder="Kết luận..." />
-                    <Button>Tạo phiếu khám</Button>
-                </form>
+                <Offcanvas show={show} onHide={handleClose} placement="top">
+                    <Offcanvas.Header closeButton>
+                        <Offcanvas.Title>Toa thuốc</Offcanvas.Title>
+                    </Offcanvas.Header>
+                    <Offcanvas.Body>
+                        <form onSubmit={createCertificate}>
+                            <Input name="symptom" placeholder="Triệu chứng..." />
+                            <Input name="conclusion" placeholder="Kết luận..." />
+                            <Button>Tạo phiếu khám</Button>
+                        </form>
+                    </Offcanvas.Body>
+                </Offcanvas>
             )}
             {idCer && (
-                <form onSubmit={updateCertificate}>
-                    <Input
-                        value={symptom}
-                        name="symptom"
-                        placeholder="Triệu chứng..."
-                        onChange={(e) => setSymptom(e.target.value)}
-                    />
-                    <Input
-                        value={conclusion}
-                        name="conclusion"
-                        placeholder="Kết luận..."
-                        onChange={(e) => setConclusion(e.target.value)}
-                    />
-                    <Button>Sửa phiếu khám</Button>
-                </form>
+                <Offcanvas show={show} onHide={handleClose} placement="top">
+                    <Offcanvas.Header closeButton>
+                        <Offcanvas.Title>Toa thuốc</Offcanvas.Title>
+                    </Offcanvas.Header>
+                    <Offcanvas.Body>
+                        <form onSubmit={updateCertificate}>
+                            <Input
+                                value={symptom}
+                                name="symptom"
+                                placeholder="Triệu chứng..."
+                                onChange={(e) => setSymptom(e.target.value)}
+                            />
+                            <Input
+                                value={conclusion}
+                                name="conclusion"
+                                placeholder="Kết luận..."
+                                onChange={(e) => setConclusion(e.target.value)}
+                            />
+                            <Button>Sửa phiếu khám</Button>
+                        </form>
+                    </Offcanvas.Body>
+                </Offcanvas>
             )}
         </div>
     );

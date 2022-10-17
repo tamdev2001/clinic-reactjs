@@ -4,9 +4,9 @@ import styles from './MyTable.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Table({ small = false, title, headings = [], children }) {
+function Table({ small = false, title, headings = [], children, green = false }) {
     return (
-        <div className={cx('container', { small })}>
+        <div className={cx('container', { small, green })}>
             <div className={cx('row')}>
                 <div className={cx('col-md-6 text-center mb-5')}>
                     <h2 className={cx('heading-section')}>{title}</h2>

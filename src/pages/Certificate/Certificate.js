@@ -1,9 +1,8 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import { Table } from 'react-bootstrap';
+import { Offcanvas } from 'react-bootstrap';
 import { useLocation, useParams } from 'react-router-dom';
 import Button from '~/components/Button';
-import Input from '~/components/Input';
 import MyTable from '~/components/MyTable';
 import doctorService from '~/services/doctor.service';
 import convertTimestamp from '~/utils/convertTimestamp';
@@ -26,6 +25,11 @@ function Certificate() {
     const [medicineOfPres, setMedicineOfPres] = useState([{ id: null, mds: null }]);
     const [quantity, setQuantity] = useState(0);
     const [isChange, setIsChange] = useState(false);
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         doctorService.getCertificateById(cerId).then(
@@ -115,6 +119,7 @@ function Certificate() {
                                     small
                                     login
                                     onClick={() => {
+                                        handleShow();
                                         getMedicine(pre.id);
                                     }}
                                 >
@@ -123,6 +128,7 @@ function Certificate() {
                                 <Button
                                     small
                                     login
+                                    primary
                                     onClick={() => {
                                         deletePrescription(pre.id);
                                     }}
@@ -169,34 +175,38 @@ function Certificate() {
                         </>
                     ))}
                     {medicines.length && (
-                        <Table striped bordered hove="true">
-                            <thead>
-                                <tr>
-                                    <th>Mã thuốc</th>
-                                    <th>Tên thuốc</th>
-                                    <th>Cách dùng thuốc</th>
-                                    <th>Giá</th>
-                                    <th>Đơn vị</th>
-                                    <th>Số lượng trên đơn vị</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {medicines.map((medicine) => (
-                                    <tr
-                                        className={cx('add-medicine')}
-                                        onClick={() => addMedicineToPresciption(medicine.id)}
-                                        key={medicine.id}
-                                    >
-                                        <td>{medicine.id}</td>
-                                        <td>{medicine.name}</td>
-                                        <td>{medicine.note}</td>
-                                        <td>{medicine.price}</td>
-                                        <td>{medicine.unit.name}</td>
-                                        <td>{medicine.quantityPerUnit}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>
+                        <Offcanvas show={show} onHide={handleClose} placement="top">
+                            <Offcanvas.Header closeButton>
+                                <Offcanvas.Title>Toa thuốc</Offcanvas.Title>
+                            </Offcanvas.Header>
+                            <Offcanvas.Body>
+                                <MyTable
+                                    headings={[
+                                        'Mã thuốc',
+                                        'Tên thuốc',
+                                        'Cách dùng',
+                                        'Giá',
+                                        'Đơn vị',
+                                        'Số lượng/đơn vị',
+                                    ]}
+                                >
+                                    {medicines.map((medicine) => (
+                                        <tr
+                                            className={cx('add-medicine')}
+                                            onClick={() => addMedicineToPresciption(medicine.id)}
+                                            key={medicine.id}
+                                        >
+                                            <td>{medicine.id}</td>
+                                            <td>{medicine.name}</td>
+                                            <td>{medicine.note}</td>
+                                            <td>{medicine.price}</td>
+                                            <td>{medicine.unit.name}</td>
+                                            <td>{medicine.quantityPerUnit}</td>
+                                        </tr>
+                                    ))}
+                                </MyTable>
+                            </Offcanvas.Body>
+                        </Offcanvas>
                     )}
                 </>
             ) : (
