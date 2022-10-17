@@ -25,9 +25,13 @@ npm start
 
 ### 1. Mô tả chung
 
-Giao diện cho website quản lý phòng mạch được xây dựng với Reactjs sử dụng API do spring boot cung cấp.
+API cho website quản lý phòng mạch được xây dựng với Spring boot
 
-### 2. Chức năng
+### 2. Swagger API documentation
+
+[embed]https://drive.google.com/file/d/10x5qxRUTR4Bd5xFB9aH9p666z6ICbcIn/view
+
+### 3. Chức năng
 
 -   Người dùng hệ thống (Một user có nhiều roles)
     -   Patient:
@@ -45,7 +49,7 @@ Giao diện cho website quản lý phòng mạch được xây dựng với Reac
                 -   Tìm kiếm thuốc
                 -   Thêm thuốc (Toa thuốc có thể có nhiều thuốc)
             -
-    -   Y tá:
+    -   Nurse:
         -   Xác nhận lịch khám và tự động gửi mail
         -   Thanh toán online
     -   Admin:
