@@ -29,8 +29,6 @@ API cho website quản lý phòng mạch được xây dựng với Spring boot
 
 ### 2. Swagger API documentation
 
-[embed]https://drive.google.com/file/d/10x5qxRUTR4Bd5xFB9aH9p666z6ICbcIn/view
-
 ### 3. Chức năng
 
 -   Người dùng hệ thống (Một user có nhiều roles)
