@@ -1,0 +1,127 @@
+* {
+    border: none;
+}
+
+*:focus {
+    outline: none;
+}
+
+//Top bar
+.topbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+.topbar-item-left,
+.topbar-item-right {
+    display: flex;
+    align-items: center;
+    flex: 1 1 0%;
+    column-gap: 2.5rem;
+}
+.topbar-item-right {
+    img {
+        width: 52px;
+        height: 52px;
+        border-radius: 100rem;
+    }
+    justify-content: end;
+}
+.topbar-search {
+    max-width: 458px;
+    width: 100%;
+}
+
+.button-login {
+    padding: auto 1.75rem;
+    background: #8c6dfd;
+}
+
+.button-login:hover {
+    background-color: #6f52da !important;
+}
+
+//Search
+.search-container {
+    background: white;
+    border-radius: 100rem;
+    box-shadow: 10px 10px 20px rgba(218, 213, 213, 0.15);
+    padding: 8px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.input-container {
+    flex: 1 1 0%;
+    padding-right: 1.25rem;
+}
+.search-input {
+    background: transparent;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgb(23, 23, 37);
+    width: 100%;
+}
+.search-input::placeholder {
+    color: rgb(178, 179, 189);
+}
+.search-button {
+    width: 72px;
+    border-radius: 100rem;
+    background-color: rgb(29, 192, 113);
+    color: white;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+//Side bar
+.sidebar-container {
+    width: 100%;
+    border-radius: 0.5rem;
+    background: white;
+    box-shadow: 10px 10px 20px rgba(218, 213, 213, 0.25);
+    padding: 2.5rem 14px;
+    display: flex;
+    flex-direction: column;
+    @media (min-width: 768px) {
+        // width: 76px;
+        width: auto;
+        // margin-bottom: 2rem;
+        height: calc(100vh - 129px - 3rem);
+    }
+}
+
+.sidebar-navlink {
+    display: flex;
+    align-items: center;
+    column-gap: 1.25rem;
+    color: #333;
+    text-decoration: none;
+    &:hover {
+        color: rgb(85, 153, 94);
+    }
+    &:last-child {
+        background: white;
+        margin-top: auto;
+        box-shadow: 10px 10px 20px rgba(211, 211, 211, 0.25);
+        justify-content: center;
+        width: 3rem;
+        margin: auto auto 0;
+    }
+    @media (min-width: 768px) {
+        // width: 3rem;
+        height: 3rem;
+        justify-content: start;
+        border-radius: 1.25rem;
+    }
+}
+
+.sidebar-active {
+    color: rgb(17, 65, 42);
+    background: rgb(186, 206, 196);
+    opacity: 0.2;
+}

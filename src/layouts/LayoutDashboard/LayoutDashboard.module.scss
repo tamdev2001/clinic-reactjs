@@ -1,0 +1,16 @@
+.dashboard-container {
+    padding: 2.5rem;
+    background-color: rgba(193, 255, 255, 0.493);
+    min-height: 100vh;
+    img {
+        width: 52px;
+        height: 52px;
+    }
+}
+
+.dashboard-content {
+    display: flex;
+    align-items: flex-start;
+    column-gap: 2.5rem;
+    min-height: calc(100vh - 96px - 5rem);
+}
