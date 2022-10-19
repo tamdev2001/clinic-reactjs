@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import DefaultLayout from './layouts/DefaultLayout';
 import { publicRoutes } from './routes';
 import React from 'react';
+import DashboardPage from './pages/Dashboard/DashboardPage';
+import SignIn from './pages/SignIn';
 
 function App() {
     return (
@@ -29,6 +31,22 @@ function App() {
                         />
                     );
                 })}
+                <Route
+                    path="/admin"
+                    element={
+                        <DashboardPage>
+                            <SignIn></SignIn>
+                        </DashboardPage>
+                    }
+                ></Route>
+                <Route
+                    path="ssign-in"
+                    element={
+                        <DashboardPage>
+                            <SignIn></SignIn>
+                        </DashboardPage>
+                    }
+                ></Route>
             </Routes>
         </BrowserRouter>
     );
