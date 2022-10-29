@@ -13,6 +13,7 @@ const routes = {
     cerDetail: '/examination/:cerId',
     cer: '/examination',
     history: '/history',
+    booked: '/booked',
     appointmentHistory: '/appointment-history',
 };
 

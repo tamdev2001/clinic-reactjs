@@ -4,6 +4,8 @@ import Input from '~/components/Input';
 import Select from '~/components/FormSelect';
 import request from '~/utils/httpRequest';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import config from '~/config';
 
 function SignUp() {
     const [username, setUsername] = useState();
@@ -11,6 +13,8 @@ function SignUp() {
     const [comfirmPassword, setConfirmPassword] = useState();
     const [phone, setPhone] = useState();
     const [file, setFile] = useState();
+
+    let navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -28,7 +32,9 @@ function SignUp() {
                     'Content-Type': 'multipart/form-data',
                 },
             })
-            .then(function (response) {});
+            .then(function (response) {
+                navigate(config.routes.signIn);
+            });
     };
     return (
         <Form onSubmit={handleSubmit}>

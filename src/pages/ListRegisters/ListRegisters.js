@@ -13,6 +13,7 @@ import Button from '~/components/Button';
 import config from '~/config';
 import Examination from '../Examination';
 import MyTable from '~/components/MyTable';
+import doctorService from '~/services/doctor.service';
 
 const cx = classNames.bind(styles);
 
@@ -22,7 +23,7 @@ function ListRegisters() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        RegisterService.getListRegisters().then(
+        doctorService.getRegisters().then(
             (res) => {
                 setRegisters(res.data);
             },
@@ -32,7 +33,7 @@ function ListRegisters() {
                     error.message ||
                     error.toString();
 
-                setRegisters(message);
+                setRegisters([]);
             },
         );
     }, []);

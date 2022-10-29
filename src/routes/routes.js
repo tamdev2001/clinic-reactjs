@@ -12,6 +12,7 @@ import Examination from '~/pages/Examination';
 import Certificate from '~/pages/Certificate';
 import History from '~/pages/History';
 import AppointmentHistory from '~/pages/AppointmentHistory';
+import Booked from '~/pages/Booked';
 
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -27,6 +28,7 @@ const publicRoutes = [
     { path: config.routes.cerDetail, component: Certificate },
     { path: config.routes.history, component: History },
     { path: config.routes.appointmentHistory, component: AppointmentHistory },
+    { path: config.routes.booked, component: Booked },
 ];
 
 const privateRoutes = [];

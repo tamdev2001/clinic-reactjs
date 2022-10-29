@@ -1,15 +1,6 @@
 import request from '~/utils/httpRequest';
 import authHeader from './auth-header';
 
-function getListRegisters(phone, name) {
-    return request.get('registers', {
-        params: {
-            phone,
-            name,
-        },
-    });
-}
-
 function getRegisterById(id) {
     return request.get(`registers/${id}`);
 }
@@ -35,7 +26,6 @@ function getRegistersByCurrentUser() {
 }
 
 export default {
-    getListRegisters,
     getRegisterById,
     createRegister,
     verifiedRegister,

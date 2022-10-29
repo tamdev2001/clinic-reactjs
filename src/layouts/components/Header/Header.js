@@ -82,12 +82,20 @@ const Header = () => {
                                         </>
                                     )}
                                     {showPatientBoard && (
-                                        <NavLink
-                                            onClick={() => setIsActiveMenu(!isActiveMenu)}
-                                            to={config.routes.history}
-                                        >
-                                            Lịch sử khám
-                                        </NavLink>
+                                        <>
+                                            <NavLink
+                                                onClick={() => setIsActiveMenu(!isActiveMenu)}
+                                                to={config.routes.history}
+                                            >
+                                                Lịch sử khám
+                                            </NavLink>
+                                            <NavLink
+                                                onClick={() => setIsActiveMenu(!isActiveMenu)}
+                                                to={config.routes.booked}
+                                            >
+                                                Cuộc hẹn khám
+                                            </NavLink>
+                                        </>
                                     )}
                                     {showNurseBoard && (
                                         <NavLink
