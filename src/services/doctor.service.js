@@ -11,19 +11,19 @@ function deleteCertificate(certificateId) {
 }
 
 function updateCertificate(cerId, cerData) {
-    return request.put(`doctors/certificates/${cerId}`, cerData, { headers: authHeader() });
+    return request.put(`doctors/certificates/${cerId}`, cerData);
 }
 
 function createCertificate(registerId, cerData) {
-    return request.post(`doctors/registers/${registerId}/certificates`, cerData, { headers: authHeader() });
+    return request.post(`doctors/registers/${registerId}/certificates`, cerData);
 }
 
 function getCertificateById(cerId) {
-    return request.get(`doctors/certificates/${cerId}`, { headers: authHeader() });
+    return request.get(`doctors/certificates/${cerId}`);
 }
 
 function createPrescription(cerId) {
-    return request.post(`doctors/certificates/${cerId}/prescriptions`, { headers: authHeader() });
+    return request.post(`doctors/certificates/${cerId}/prescriptions`);
 }
 
 function updatePrescription(preId) {
@@ -31,7 +31,7 @@ function updatePrescription(preId) {
 }
 
 function getPrescriptionsByCertificateId(cerId) {
-    return request.get(`doctors/certificates/${cerId}/prescriptions`, { headers: authHeader() });
+    return request.get(`doctors/certificates/${cerId}/prescriptions`);
 }
 
 function deletePrescription(preId) {
@@ -43,7 +43,7 @@ function addMedicineToPresciption(preId, medicinId) {
 }
 
 function getMedicines() {
-    return request.get('doctors/medicines', { headers: authHeader() });
+    return request.get('doctors/medicines');
 }
 
 function getPrescriptionDetailsByPrescriptionId(preId) {
@@ -52,6 +52,13 @@ function getPrescriptionDetailsByPrescriptionId(preId) {
 
 function removeMedicineFromPresciption(preId, medicineId) {
     return request.delete(`doctors/prescriptions/${preId}/medicines/${medicineId}`);
+}
+
+function getRegisters(name, phone, verified, examinationTime, createdDate) {
+    console.log(authHeader());
+    return request.get('doctors/registers/', {
+        params: { name, phone, verified, examinationTime, createdDate },
+    });
 }
 
 export default {
@@ -68,4 +75,5 @@ export default {
     getMedicines,
     getPrescriptionDetailsByPrescriptionId,
     removeMedicineFromPresciption,
+    getRegisters,
 };
