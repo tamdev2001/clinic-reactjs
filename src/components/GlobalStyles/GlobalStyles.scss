@@ -16,3 +16,19 @@
 .offcanvas {
     height: 400px !important;
 }
+
+.table-board {
+    overflow: auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+    max-height: 47rem;
+}
+
+.table-board::-webkit-scrollbar {
+    width: 0 !important;
+    display: none;
+}
+
+.checked-item {
+    text-decoration: line-through;
+}

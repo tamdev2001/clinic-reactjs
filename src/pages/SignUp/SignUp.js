@@ -11,6 +11,7 @@ function SignUp() {
     const [comfirmPassword, setConfirmPassword] = useState();
     const [phone, setPhone] = useState();
     const [file, setFile] = useState();
+    const [roles, setRoles] = useState([1, 2]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,6 +22,7 @@ function SignUp() {
         formData.append('password', password);
         formData.append('comfirmPassword', comfirmPassword);
         formData.append('phone', phone);
+        formData.append('roles', roles);
 
         request
             .post('/auth/signup', formData, {
