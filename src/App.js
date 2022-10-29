@@ -6,6 +6,9 @@ import { publicRoutes } from './routes';
 import React from 'react';
 import DashboardPage from './pages/Dashboard/DashboardPage';
 import SignIn from './pages/SignIn';
+import DashboardContent from './pages/UserManagement';
+import DashboardMedicine from './pages/ManagementPages/MedicinePage';
+import { sidebarLinks } from './layouts/components/Dashboard/DashboardSidebar';
 
 function App() {
     return (
@@ -31,22 +34,15 @@ function App() {
                         />
                     );
                 })}
-                <Route
-                    path="/admin"
-                    element={
-                        <DashboardPage>
-                            <SignIn></SignIn>
-                        </DashboardPage>
-                    }
-                ></Route>
-                <Route
-                    path="ssign-in"
-                    element={
-                        <DashboardPage>
-                            <SignIn></SignIn>
-                        </DashboardPage>
-                    }
-                ></Route>
+                {sidebarLinks.map((item, idx) => {
+                    return (
+                        <Route
+                            key={idx}
+                            path={item.url}
+                            element={<DashboardPage>{item.content(item.title)}</DashboardPage>}
+                        ></Route>
+                    );
+                })}
             </Routes>
         </BrowserRouter>
     );
