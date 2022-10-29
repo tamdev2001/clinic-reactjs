@@ -22,10 +22,15 @@ function getAdminBoard() {
     return request.get('test/admin', { headers: authHeader() });
 }
 
+function getRegistersByUserId(userId) {
+    return request.get(`users/${userId}/registers`);
+}
+
 export default {
     getPublicContent,
     getPatientBoard,
     getDoctorBoard,
     getNurseBoard,
     getAdminBoard,
+    getRegistersByUserId,
 };

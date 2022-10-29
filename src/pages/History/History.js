@@ -125,7 +125,7 @@ function History() {
                                                     </div>
                                                 </div>
                                                 {prescriptions.length &&
-                                                    prescriptions.find((p) => p.cerId == cer.id) !== null &&
+                                                    prescriptions.find((p) => p.cerId == cer.id) !== undefined &&
                                                     prescriptions.find((p) => p.cerId === cer.id).pres.length &&
                                                     prescriptions
                                                         .find((p) => p.cerId === cer.id)
