@@ -95,6 +95,7 @@ function History() {
                                     <td>{r.verified ? <span>Đã xác nhận</span> : <span>Chưa xác nhận</span>}</td>
                                 </tr>
                                 {certificates.length &&
+                                    certificates.find((c) => c.id === r.id) !== undefined &&
                                     certificates.find((c) => c.id === r.id).cers.length &&
                                     certificates
                                         .find((c) => c.id == r.id)
