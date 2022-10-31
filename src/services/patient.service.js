@@ -1,8 +1,7 @@
 import request from '~/utils/httpRequest';
-import authHeader from './auth-header';
 
 function getPrescriptionsByCertificateId(cerId) {
-    return request.get(`doctors/certificates/${cerId}/prescriptions`, { headers: authHeader() });
+    return request.get(`doctors/certificates/${cerId}/prescriptions`);
 }
 
 function getPrescriptionDetailsByPrescriptionId(preId) {

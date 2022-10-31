@@ -1,6 +1,4 @@
-import authHeader from './auth-header';
-
-const { default: request } = require('~/utils/httpRequest');
+import request from '~/utils/httpRequest';
 
 function getCertificatesByRegisterId(registerId) {
     return request.get(`doctors/registers/${registerId}/certificates`);

@@ -14,6 +14,7 @@ const routes = {
     cer: '/examination',
     history: '/history',
     booked: '/booked',
+    prescriptions: '/prescriptions',
     appointmentHistory: '/appointment-history',
 };
 

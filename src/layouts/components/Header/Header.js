@@ -103,13 +103,19 @@ const Header = () => {
                                                 onClick={() => setIsActiveMenu(!isActiveMenu)}
                                                 to={config.routes.appointmentHistory}
                                             >
-                                                Danh sách khám
+                                                Danh sách cuộc hẹn
                                             </NavLink>
                                             <NavLink
                                                 onClick={() => setIsActiveMenu(!isActiveMenu)}
                                                 to={config.routes.booked}
                                             >
                                                 Lịch sử đăng ký
+                                            </NavLink>
+                                            <NavLink
+                                                onClick={() => setIsActiveMenu(!isActiveMenu)}
+                                                to={config.routes.prescriptions}
+                                            >
+                                                Bán thuốc
                                             </NavLink>
                                         </>
                                     )}

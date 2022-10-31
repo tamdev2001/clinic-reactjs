@@ -32,3 +32,51 @@
 .checked-item {
     text-decoration: line-through;
 }
+
+// vitual table
+
+.policy-table {
+    color: grey;
+    text-align: center;
+    margin-left: 140px;
+}
+
+.headings-table,
+.policy {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 1em;
+    padding: 1em;
+}
+
+.heading-table {
+    flex-basis: 33.333%;
+    font-weight: bold;
+}
+
+.policy {
+    border-radius: 2em;
+    background-color: white;
+    margin-bottom: 20px;
+    -moz-box-shadow: 0 0 3px grey;
+    -webkit-box-shadow: 0 0 3px grey;
+    box-shadow: 0 0 5px grey;
+}
+
+span {
+    flex-basis: 33.333%;
+}
+
+a {
+    text-decoration: none;
+    color: #4c4c4c;
+}
+
+//============
+.flex {
+    display: flex;
+}
