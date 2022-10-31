@@ -76,7 +76,6 @@ function Certificate() {
             setMedicines(medicine.data);
             setPreId(preId);
         });
-        console.log('hey');
     };
 
     const addMedicineToPresciption = (medicineId) => {
@@ -108,7 +107,7 @@ function Certificate() {
                         <>
                             <div key={pre.id} className={cx('wrap-pre')}>
                                 <div className={cx('pre-item')}>
-                                    <h4>Mã phiếu khám</h4>
+                                    <h4>Mã toa thuốc</h4>
                                     <span>{pre.id}</span>
                                 </div>
                                 <div className={cx('pre-item')}>

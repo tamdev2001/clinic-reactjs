@@ -63,7 +63,6 @@ function Add({ setIsAdding, nameBoard }) {
         for (let i = 0; i < roles.length; i++) {
             if (roles[i].select === true) {
                 arrRole.push(roles[i].id);
-                console.log(arrRole);
             }
         }
 

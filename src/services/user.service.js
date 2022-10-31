@@ -10,7 +10,6 @@ function getPatientBoard() {
 }
 
 function getDoctorBoard() {
-    console.log({ headers: authHeader() });
     return request.get('test/doctor', { headers: authHeader() });
 }
 

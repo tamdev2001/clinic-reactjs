@@ -62,8 +62,6 @@ function Edit({ selected, setIsEditing, nameBoard }) {
                 showConfirmButton: true,
             });
         }
-
-        // console.log(id);
         adminService.updateCertificate(id, certificate);
         setIsEditing(false);
 

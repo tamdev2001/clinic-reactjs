@@ -61,8 +61,6 @@ function History() {
         );
     }, [prescriptions]);
 
-    console.log('certificates ', certificates);
-
     if (!currentUser) {
         return <h1>Đăng nhập để xem lịch sử</h1>;
     }

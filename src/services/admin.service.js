@@ -13,7 +13,6 @@ function getUsers() {
 // }
 
 function deleteUser(id) {
-    console.log(id);
     return request
         .delete(`admin/users/${id}`)
         .then(() => console.log('Delete!!'))
@@ -27,7 +26,6 @@ function getCertificates(regId) {
 }
 
 function deleteCertificate(id) {
-    console.log(id);
     return request
         .delete(`admin/certificates/${id}`)
         .then((res) => console.log('Delete!!', res))
@@ -48,12 +46,10 @@ function getMedicines(name) {
 }
 
 function createMedicine(mData) {
-    console.log(mData);
     return request.post(`admin/medicines`, mData);
 }
 
 function deleteMedicine(id) {
-    console.log(id);
     return request
         .delete(`admin/medicines/${id}`)
         .then((res) => console.log('Delete!!', res))

@@ -55,7 +55,6 @@ function removeMedicineFromPresciption(preId, medicineId) {
 }
 
 function getRegisters(name, phone, verified, examinationTime, createdDate) {
-    console.log(authHeader());
     return request.get('doctors/registers/', {
         params: { name, phone, verified, examinationTime, createdDate },
     });

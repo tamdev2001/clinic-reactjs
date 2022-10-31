@@ -63,7 +63,6 @@ function Edit({ selected, setIsEditing, nameBoard }) {
             });
         }
 
-        // console.log(id);
         adminService.updateMedicine(id, medicine);
         setIsEditing(false);
 

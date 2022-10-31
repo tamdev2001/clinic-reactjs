@@ -36,8 +36,6 @@ function Examination() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    console.log('show ', show);
-
     useEffect(() => {
         DoctorService.getCertificatesByRegisterId(state.register.id).then(
             (res) => setCertificates(res.data),

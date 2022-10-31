@@ -98,12 +98,20 @@ const Header = () => {
                                         </>
                                     )}
                                     {showNurseBoard && (
-                                        <NavLink
-                                            onClick={() => setIsActiveMenu(!isActiveMenu)}
-                                            to={config.routes.appointmentHistory}
-                                        >
-                                            Lịch sử đăng ký
-                                        </NavLink>
+                                        <>
+                                            <NavLink
+                                                onClick={() => setIsActiveMenu(!isActiveMenu)}
+                                                to={config.routes.appointmentHistory}
+                                            >
+                                                Danh sách khám
+                                            </NavLink>
+                                            <NavLink
+                                                onClick={() => setIsActiveMenu(!isActiveMenu)}
+                                                to={config.routes.booked}
+                                            >
+                                                Lịch sử đăng ký
+                                            </NavLink>
+                                        </>
                                     )}
                                     {currentUser && (
                                         <>

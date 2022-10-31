@@ -10,6 +10,7 @@ import Button from '~/components/Button';
 import FormTitle from '~/components/FormTitle';
 
 import registerService from '~/services/register.service';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -24,7 +25,7 @@ function Register() {
 
         registerService.createRegister(registerData).then((register) => {
             if (register.status === 201) {
-                return navigate('/');
+                return navigate(config.routes.booked);
             }
         });
     };

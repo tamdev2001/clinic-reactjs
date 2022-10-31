@@ -17,8 +17,8 @@ function deleteRegister(id) {
     return request.delete(`registers/${id}`).then((res) => res.data);
 }
 
-function updateRegister(id, name, phone, healthIssues, examinationTime) {
-    return request.put(`registers/${id}`, { name, phone, healthIssues, examinationTime });
+function updateRegister(id, registerData) {
+    return request.put(`registers/${id}`, registerData);
 }
 
 function getRegistersByCurrentUser() {

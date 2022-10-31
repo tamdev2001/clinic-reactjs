@@ -65,10 +65,7 @@ function Add({ setIsAdding, nameBoard }) {
             });
         }
 
-        // let mData = Object.fromEntries(new FormData(e.target).entries());
-
         adminService.createMedicine(medicine);
-        console.log(medicine);
 
         setIsAdding(false);
 
