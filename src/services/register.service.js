@@ -1,12 +1,11 @@
 import request from '~/utils/httpRequest';
-import authHeader from './auth-header';
 
 function getRegisterById(id) {
     return request.get(`registers/${id}`);
 }
 
 function createRegister(data) {
-    return request.post('registers', data, { headers: authHeader() });
+    return request.post('registers', data);
 }
 
 function verifiedRegister(id) {
@@ -22,7 +21,13 @@ function updateRegister(id, registerData) {
 }
 
 function getRegistersByCurrentUser() {
-    return request.get('users/registers', { headers: authHeader() });
+    return request.get('users/registers');
+}
+
+function getRegisters(name, phone, verified, examinationTime, createdDate) {
+    return request.get('nurses/registers/', {
+        params: { name, phone, verified, examinationTime, createdDate },
+    });
 }
 
 export default {
@@ -32,4 +37,5 @@ export default {
     deleteRegister,
     updateRegister,
     getRegistersByCurrentUser,
+    getRegisters,
 };

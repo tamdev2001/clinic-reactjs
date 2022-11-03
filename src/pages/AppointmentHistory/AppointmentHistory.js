@@ -13,7 +13,7 @@ function AppointmentHistory() {
     const [stateRegister, setStateRegister] = useState(0);
 
     useEffect(() => {
-        registerService.getRegistersByCurrentUser().then(
+        registerService.getRegisters().then(
             (res) => setRegisters(res.data),
             (error) => setRegisters(error.response.data),
         );
