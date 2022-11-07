@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 const LayoutDashboard = ({ children }) => {
     return (
         <div className={cx('dashboard-container')}>
-            <DashboardTopbar></DashboardTopbar>
+            <DashboardTopbar logo="logo.png"></DashboardTopbar>
             <div className={cx('dashboard-content')}>
                 <DashboardSidebar></DashboardSidebar>
                 <div>{children}</div>
