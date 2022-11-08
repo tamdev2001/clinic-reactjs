@@ -5,24 +5,34 @@ import classNames from 'classnames/bind';
 
 import Button from '~/components/Button';
 import MyTable from '~/components/MyTable';
-import Search from '~/layouts/components/Search';
 import commonService from '~/services/common.service';
 import nurseService from '~/services/nurse.service';
 import paymentService from '~/services/payment.service';
 import convertTimestamp from '~/utils/convertTimestamp';
 import styles from './Prescriptions.module.scss';
+import { Offcanvas } from 'react-bootstrap';
+import Input from '~/components/Input';
 
 const cx = classNames.bind(styles);
 
 function Prescriptions() {
     const { user: currentUser } = useSelector((state) => state.auth);
-    const [prescriptions, setPrescription] = useState([]);
+    const [prescriptions, setPrescriptions] = useState([]);
     const [statePre, setStatePre] = useState(0);
     const [medicineOfPres, setMedicineOfPres] = useState([]);
     const [payment, setPayment] = useState('');
+    const [voucher, setVoucher] = useState('');
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
-        nurseService.getPrescriptions().then((res) => setPrescription(res.data));
+        nurseService.getPrescriptions().then(
+            (res) => setPrescriptions(res.data),
+            () => setPrescriptions([]),
+        );
     }, [payment]);
 
     useEffect(() => {
@@ -36,13 +46,23 @@ function Prescriptions() {
     }, [prescriptions]);
 
     const handlePayment = (preId) => {
-        paymentService.handlePayment(preId).then((res) => setPayment(res.data));
+        paymentService.handlePayment(preId, voucher).then((res) => {
+            setPayment(res.data);
+            setVoucher('');
+        });
+    };
+
+    const updatePayment = (receiptId) => {
+        paymentService.updatePayment(receiptId, voucher).then((res) => {
+            setPayment(res.data);
+            setVoucher('');
+        });
     };
 
     if (currentUser.roles.find((r) => r === 'ROLE_NURSE') === undefined) {
         return <h1>Please login with nurse role</h1>;
     }
-
+    console.log('prescriptions ', prescriptions);
     return (
         <>
             {prescriptions.length && (
@@ -53,17 +73,6 @@ function Prescriptions() {
                                 <tr key={p.id}>
                                     <td>{p.id}</td>
                                     <td>{convertTimestamp(p.createdDate)}</td>
-                                    <td>
-                                        {p.receiptPrescription ? (
-                                            <Button small primary>
-                                                Đã thanh toán
-                                            </Button>
-                                        ) : (
-                                            <Button small green onClick={() => handlePayment(p.id)}>
-                                                Thanh toán
-                                            </Button>
-                                        )}
-                                    </td>
                                 </tr>
                                 {medicineOfPres.find((m) => m.preId === p.id) !== undefined && (
                                     <>
@@ -95,9 +104,39 @@ function Prescriptions() {
                                                                 </div>
                                                             ))}
                                                 </div>
-                                                {p.receiptPrescription && (
+                                                {p.receiptPrescription ? (
                                                     <div className={cx('total-price')}>
-                                                        Tổng tiền thuốc: {p.receiptPrescription.priceTotal}
+                                                        <h1 className={cx('title')}>
+                                                            Tổng tiền thuốc: {p.receiptPrescription.priceTotal}
+                                                        </h1>
+                                                        <>
+                                                            <Input
+                                                                placeholder="Enter voucher..."
+                                                                value={voucher}
+                                                                onChange={(e) => setVoucher(e.target.value)}
+                                                            />
+                                                            <Button small primary>
+                                                                Đã thanh toán
+                                                            </Button>
+                                                            <Button
+                                                                small
+                                                                green
+                                                                onClick={() => updatePayment(p.receiptPrescription.id)}
+                                                            >
+                                                                Sửa voucher
+                                                            </Button>
+                                                        </>
+                                                    </div>
+                                                ) : (
+                                                    <div className={cx('total-price')}>
+                                                        <Input
+                                                            placeholder="Enter voucher..."
+                                                            value={voucher}
+                                                            onChange={(e) => setVoucher(e.target.value)}
+                                                        />
+                                                        <Button small green onClick={() => handlePayment(p.id)}>
+                                                            Thanh toán
+                                                        </Button>
                                                     </div>
                                                 )}
                                             </div>

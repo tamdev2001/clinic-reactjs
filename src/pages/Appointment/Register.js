@@ -36,7 +36,8 @@ function Register() {
                 <Input name="name" placeholder="Enter name" />
                 <Input name="phone" placeholder="Enter phone" />
                 <Input name="healthIssues" placeholder="Enter issues" />
-                <Input name="examinationTime" type="date" />
+                <Input name="email" placeholder="Enter email" />
+                <Input name="examinationTime" type="date" placeholder="choose examination date" />
                 <Button login type="submit">
                     Appointment
                 </Button>

@@ -113,9 +113,15 @@ const Header = () => {
                                             </NavLink>
                                             <NavLink
                                                 onClick={() => setIsActiveMenu(!isActiveMenu)}
-                                                to={config.routes.prescriptions}
+                                                to={config.routes.prescriptionPayment}
                                             >
-                                                Bán thuốc
+                                                Thanh toán toa thuốc
+                                            </NavLink>
+                                            <NavLink
+                                                onClick={() => setIsActiveMenu(!isActiveMenu)}
+                                                to={config.routes.examinationPayment}
+                                            >
+                                                Thanh toán tiền khám
                                             </NavLink>
                                         </>
                                     )}

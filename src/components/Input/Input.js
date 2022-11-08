@@ -4,7 +4,7 @@ import styles from './Input.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Input({ type, name, placeholder, lable, change, ...passProps }) {
+function Input({ type = 'text', name, placeholder, lable, change, ...passProps }) {
     return (
         <div className={cx('wrap-input')}>
             <label htmlFor={name}>{lable}</label>

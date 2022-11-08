@@ -42,9 +42,12 @@ function Certificate() {
     }, []);
 
     useEffect(() => {
-        doctorService.getPrescriptionsByCertificateId(cerId).then((res) => {
-            setPrescriptions(res.data);
-        });
+        doctorService.getPrescriptionsByCertificateId(cerId).then(
+            (res) => {
+                setPrescriptions(res.data);
+            },
+            () => setPrescriptions([]),
+        );
     }, [changePre]);
 
     useEffect(() => {
@@ -64,12 +67,10 @@ function Certificate() {
     };
 
     const deletePrescription = (preId) => {
-        doctorService.deletePrescription(preId).then((res) => {
-            if (res.data) {
-                setChangePre(changePre + 1);
-            }
-        });
+        doctorService.deletePrescription(preId).then((res) => setChangePre((prev) => prev + 1));
     };
+
+    console.log('changePre ', changePre);
 
     const getMedicine = (preId) => {
         doctorService.getMedicines().then((medicine) => {

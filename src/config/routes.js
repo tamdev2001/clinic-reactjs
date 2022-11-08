@@ -9,12 +9,13 @@ const routes = {
     boardPatient: '/board-patient',
     boardDoctor: '/board-doctor',
     boardNurse: '/board-nurse',
-    examination: '/examinations',
+    examination: '/examination',
     cerDetail: '/examination/:cerId',
     cer: '/examination',
     history: '/history',
     booked: '/booked',
-    prescriptions: '/prescriptions',
+    examinationPayment: '/examination-payment',
+    prescriptionPayment: '/prescription-payment',
     appointmentHistory: '/appointment-history',
 };
 
