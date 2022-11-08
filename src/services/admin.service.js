@@ -2,6 +2,15 @@ import authHeader from './auth-header';
 
 const { default: request } = require('~/utils/httpRequest');
 
+//Stats
+function getStatsRevenueReMonthByYear(year) {
+    return request.get(`admin/stats-revenue-re-month-by-year/${year}`);
+}
+
+function getStatsRevenueRpMonthByYear(year) {
+    return request.get(`admin/stats-revenue-rp-month-by-year/${year}`);
+}
+
 //User
 
 function getUsers() {
@@ -79,4 +88,6 @@ export default {
     getCertificates,
     deleteCertificate,
     updateCertificate,
+    getStatsRevenueReMonthByYear,
+    getStatsRevenueRpMonthByYear,
 };

@@ -7,14 +7,11 @@ import { Button } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
-const DashboardTopbar = () => {
+const DashboardTopbar = ({ logo }) => {
     return (
         <div className={cx('topbar-container')}>
             <div className={cx('topbar-item-left')}>
-                <img
-                    src="https://github.com/thanhtamnguyen2001/clinic-reactjs/blob/react-v2/public/logo.png?raw=true"
-                    alt="logo-clinic"
-                />
+                <img srcSet={logo} alt="logo-clinic" />
                 <div className={cx('topbar-search')}>
                     <DashboardSearch></DashboardSearch>
                 </div>
