@@ -6,9 +6,10 @@ import { publicRoutes } from './routes';
 import React from 'react';
 import DashboardPage from './pages/Dashboard/DashboardPage';
 import SignIn from './pages/SignIn';
-import DashboardContent from './pages/UserManagement';
 import DashboardMedicine from './pages/ManagementPages/MedicinePage';
 import { sidebarLinks } from './layouts/components/Dashboard/DashboardSidebar';
+import Dashboard from './pages/Dashboard';
+import { DashboardStats } from './pages/ManagementPages/StatsPage';
 
 function App() {
     return (
@@ -43,6 +44,7 @@ function App() {
                         ></Route>
                     );
                 })}
+                <Route path={'/stats'} element={<DashboardStats />}></Route>
             </Routes>
         </BrowserRouter>
     );
