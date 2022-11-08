@@ -15,6 +15,7 @@ import AppointmentHistory from '~/pages/AppointmentHistory';
 import Booked from '~/pages/Booked';
 import Prescriptions from '~/pages/Prescriptions';
 import ExaminationPayment from '~/pages/ExaminationPayment';
+import { DashboardStats } from '~/pages/ManagementPages/StatsPage';
 
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -33,6 +34,7 @@ const publicRoutes = [
     { path: config.routes.booked, component: Booked },
     { path: config.routes.prescriptionPayment, component: Prescriptions },
     { path: config.routes.examinationPayment, component: ExaminationPayment },
+    { path: config.routes.stats, component: DashboardStats },
 ];
 
 const privateRoutes = [];

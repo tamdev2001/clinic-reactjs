@@ -17,6 +17,7 @@ const routes = {
     examinationPayment: '/examination-payment',
     prescriptionPayment: '/prescription-payment',
     appointmentHistory: '/appointment-history',
+    stats: '/stats',
 };
 
 export default routes;

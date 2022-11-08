@@ -22,6 +22,7 @@ const Header = () => {
     const [showNurseBoard, setShowNurseBoard] = useState(false);
 
     const { user: currentUser } = useSelector((state) => state.auth);
+    console.log(currentUser);
     const dispatch = useDispatch();
 
     let location = useLocation();
