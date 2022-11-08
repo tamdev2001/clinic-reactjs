@@ -52,9 +52,10 @@ const Login = (props) => {
 
         if (checkBtn.current.context._errors.length === 0) {
             dispatch(login(username, password))
-                .then(() => {
-                    navigate('/profile');
-                    // window.location.reload();
+                .then((data) => {
+                    if (data.roles.includes('ROLE_ADMIN')) {
+                        navigate('/admin');
+                    } else navigate('/profile');
                 })
                 .catch(() => {
                     setLoading(false);
